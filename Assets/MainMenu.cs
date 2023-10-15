@@ -10,6 +10,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Stage");
     }
 
+    public void OpenSettings ()
+    {
+	// TODO some code to let the Settings "Back" button return correctly
+        SceneManager.LoadScene("Settings");
+    }
+
     public void QuitGame ()
     {
         Application.Quit();
