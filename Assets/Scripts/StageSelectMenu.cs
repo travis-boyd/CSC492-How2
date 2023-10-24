@@ -20,7 +20,4 @@ public class StageSelectMenu : MonoBehaviour
         // TODO load Damage101 level select
     }
 
-    public void BackButton ()
-    {
-    }
 }
