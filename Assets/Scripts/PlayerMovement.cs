@@ -71,8 +71,15 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
-        SpeedControl();
         StateHandler();
+            
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+        SpeedControl();
+        Animation();
 
         //Handle drag
         if (state == MovementState.walking || state == MovementState.sprinting)
@@ -83,13 +90,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
-            
-    }
-
-    private void FixedUpdate()
-    {
-        MovePlayer();
-        Animation();
     }
 
     private void MyInput()
@@ -108,7 +108,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    bool keepMomentum;
     private void StateHandler()
     {
 
@@ -163,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.down * 400f, ForceMode.Force);
     }
     private void ResetJump()
     {
