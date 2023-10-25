@@ -25,10 +25,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode forwardKey = KeyCode.W;
+    /*public KeyCode forwardKey = KeyCode.W;
     public KeyCode backwardKey = KeyCode.S;
     public KeyCode rightKey = KeyCode.D;
-    public KeyCode leftKey = KeyCode.A;
+    public KeyCode leftKey = KeyCode.A;*/
 
 
     [Header("Ground Check")]
@@ -78,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
         if (state == MovementState.walking || state == MovementState.sprinting)
         {
             rb.drag = groundDrag;
-
         }
         else
         {
@@ -176,10 +175,12 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && verticalInput != 0 || horizontalInput != 0)
         {
             animator.SetBool("isMoving", true);
-        } else if(grounded && state == MovementState.sprinting)
+        } 
+        else if(grounded && state == MovementState.sprinting)
         {
             animator.SetBool("isSprinting", true);
-        } else if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        } 
+        else if(Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             animator.SetBool("isJumping", true);
         }

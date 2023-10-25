@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -860,7 +860,7 @@ Transform:
   m_GameObject: {fileID: 463365710}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.45, y: 4.34, z: 0}
+  m_LocalPosition: {x: 1.45, y: 4.34, z: 1.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1576,7 +1576,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099390141}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16170427, y: 0.000000008489967, z: -0.0000000013911727, w: 0.9868393}
+  m_LocalRotation: {x: 0.16170427, y: -0.000000008489967, z: 0.0000000013911727, w: 0.9868393}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1670,7 +1670,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158683958}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.103105776, y: 0.009498224, z: -0.0009846142, w: 0.99462456}
+  m_LocalRotation: {x: 0.103109255, y: 0.004808412, z: -0.0004984543, w: 0.9946583}
   m_LocalPosition: {x: 0, y: 5.19, z: -11.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1782,7 +1782,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162655820}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.105422184, y: -0.00460046, z: 0.0014848608, w: 0.9944159}
+  m_LocalRotation: {x: 0.105422184, y: -0.0046005063, z: 0.0014848757, w: 0.9944159}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1861,7 +1861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226993463}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000014901163, y: 0.0046147928, z: -0.0009671597, w: 0.9999889}
+  m_LocalRotation: {x: 0.000000007450581, y: -4.656613e-10, z: -5.820766e-11, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1940,7 +1940,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328749108}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.05908823, y: -0.00466452, z: 0.0012694328, w: 0.99824107}
+  m_LocalRotation: {x: 0.05908823, y: -0.0046645366, z: 0.0012694374, w: 0.99824107}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2151,7 +2151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941775821}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10310578, y: 0.009498223, z: -0.0009846146, w: 0.99462456}
+  m_LocalRotation: {x: 0.10310926, y: 0.0048084115, z: -0.0004984544, w: 0.9946583}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2230,7 +2230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011007871}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20739737, y: 0.0000000026570026, z: -5.6330474e-10, w: 0.9782568}
+  m_LocalRotation: {x: 0.20739737, y: 0.0000000026570062, z: -5.6330446e-10, w: 0.9782568}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2434,7 +2434,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8135476682480744967, guid: 0895730601d0713409c210092e15bc51, type: 3}
+    - {fileID: 748401550948295855, guid: 0895730601d0713409c210092e15bc51, type: 3}
+    - {fileID: 5665513097454287376, guid: 0895730601d0713409c210092e15bc51, type: 3}
+    - {fileID: 8597189715760263830, guid: 0895730601d0713409c210092e15bc51, type: 3}
+    - {fileID: 6113926030648007180, guid: 0895730601d0713409c210092e15bc51, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0895730601d0713409c210092e15bc51, type: 3}
