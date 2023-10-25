@@ -14,10 +14,10 @@ public class LanguageSelection : MonoBehaviour
         languageDropdown.value = savedLanguageIndex;
 
         // Add a listener to the dropdown's onValueChanged event
-        languageDropdown.onValueChanged.AddListener(SaveSelectedLanguage);
+        languageDropdown.onValueChanged.AddListener(SelectLanguage);
     }
 
-    private void SaveSelectedLanguage(int selectedIndex)
+    private void SelectLanguage(int selectedIndex)
     {
         // Get the selected language from the dropdown
         string selectedLanguage = languageDropdown.options[selectedIndex].text;
