@@ -5,7 +5,6 @@ using TMPro;
 public class LanguageSelection : MonoBehaviour
 {
     public TMP_Dropdown languageDropdown;
-    private const string PlayerPrefKey = "SelectedLanguage";
 
     private void Start()
     {
