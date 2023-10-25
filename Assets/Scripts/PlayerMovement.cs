@@ -77,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
         StateHandler();
-        checkFalling();
         Animation();
 
 
@@ -120,23 +119,25 @@ public class PlayerMovement : MonoBehaviour
     {
 
         // Mode - Sprinting
-        if (grounded && Input.GetKey(sprintKey))
-        {
-            state = MovementState.sprinting;
-            moveSpeed = sprintSpeed;
-        }
+
 
         // Mode - Walking / Idle
-        else if (grounded)
+        if (grounded)
         {
-            // check for WASD
-            if(Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey))
+            if ((Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey)) && Input.GetKey(sprintKey))
+            {
+                state = MovementState.sprinting;
+                moveSpeed = sprintSpeed;
+                UnityEngine.Debug.Log("Sprint!");
+            }
+            else if (Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey))
             {
                 state = MovementState.walking;
                 moveSpeed = walkSpeed;
-            } 
+
+            }
             // if not set player in idle state
-            else
+            else 
             {
                 state = MovementState.idle;
 
@@ -193,11 +194,10 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && state == MovementState.walking)
         {
             animator.SetBool("isMoving", true); // set isMoving boolean to true 
-            animator.SetBool("isSprinting", false); // set isSprinting is set false here to stop sprinting when going from sprinting to walking
+            animator.SetBool("isSprinting", false); // set isSprinting is set false here to stop sprinting when going from sprinting to walking'
 
-        } 
-        // check if player is in sprinting state
-        else if(grounded && state == MovementState.sprinting)
+        }
+        else if (grounded && state == MovementState.sprinting)
         {
             animator.SetBool("isSprinting", true); // set isSprinting boolean to true 
         }
@@ -220,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
             animator.SetBool("isGrounded", false);
             isJumping = true;
-        } else if(!grounded && isJumping && isFalling)
+        } else if(!grounded && isJumping )
         {
             animator.SetBool("isFalling", true);
         } else
@@ -232,25 +232,4 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private float lastY;
-    public float fallingThreshold = -0.1f;
-    [HideInInspector]
-    public bool isFalling = false;
-    public void checkFalling()
-    {
-        float distancePerSecondSinceLastFrame = (transform.position.y - lastY) * Time.deltaTime;
-        UnityEngine.Debug.Log(distancePerSecondSinceLastFrame);
-        lastY = transform.position.y;  //set for next frame
-        if (distancePerSecondSinceLastFrame < fallingThreshold)
-        {
-            isFalling = true;
-            UnityEngine.Debug.Log("Falling");
-
-        }
-        else
-        {
-            isFalling = false;
-            UnityEngine.Debug.Log("Not Falling");
-        }
-    }
 }
