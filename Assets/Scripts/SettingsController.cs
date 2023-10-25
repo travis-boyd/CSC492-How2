@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// TODO:
+// - save resolution as absolute values instead of a list index
+// - save language as absolute value instead of a list index
+
 public class SettingsController : MonoBehaviour
 {
     public TMP_Dropdown languageDropdown;
