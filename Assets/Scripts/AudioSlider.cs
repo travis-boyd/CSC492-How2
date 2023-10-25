@@ -11,6 +11,16 @@ public class AudioSlider : MonoBehaviour
 
     public void onChangeSlider(float Value)
     {
+
+        // Save selected volume to PlayerPrefs
+        PlayerPrefs.SetFloat("MasterVolume", Value);
+        PlayerPrefs.Save();
+
+        // Update volume
+        AudioListener.volume = Value;
+
+        // Update UI
         VolumeNumber.SetText($"{(Value * 100).ToString("N0")}");
+
     }
 }
