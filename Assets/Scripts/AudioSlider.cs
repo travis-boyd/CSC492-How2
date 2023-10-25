@@ -24,7 +24,7 @@ public class AudioSlider : MonoBehaviour
 
         // Output for testing purposes
         Debug.Log("[ACTION] Selected MasterVolume: " + Value);
-        DebugPlayerPrefs();
+        // DebugPlayerPrefs();
 
     }
 
