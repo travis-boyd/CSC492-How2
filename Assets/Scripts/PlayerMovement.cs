@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         //Handle drag
-        if (state == MovementState.walking || state == MovementState.sprinting)
+        if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.idle)
         {
             rb.drag = groundDrag;
 
@@ -128,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 state = MovementState.sprinting;
                 moveSpeed = sprintSpeed;
-                UnityEngine.Debug.Log("Sprint!");
             }
             else if (Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey))
             {
