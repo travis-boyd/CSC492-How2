@@ -22,5 +22,26 @@ public class AudioSlider : MonoBehaviour
         // Update UI
         VolumeNumber.SetText($"{(Value * 100).ToString("N0")}");
 
+        // Output for testing purposes
+        Debug.Log("[ACTION] Selected MasterVolume: " + Value);
+        DebugPlayerPrefs();
+
+    }
+
+
+    private void DebugPlayerPrefs()
+    {
+        if (PlayerPrefs.HasKey("MasterVolume"))
+        {
+            Debug.Log("PlayerPrefs - MasterVolume: " +  PlayerPrefs.GetFloat("MasterVolume"));
+        }
+        if (PlayerPrefs.HasKey("ResolutionPrefKey"))
+        {
+            Debug.Log("PlayerPrefs - Resolution: "  +  PlayerPrefs.GetInt("ResolutionPrefKey"));
+        }
+        if (PlayerPrefs.HasKey("Language"))
+        {
+            Debug.Log("PlayerPrefs - Language: " +  PlayerPrefs.GetString("Language"));
+        }
     }
 }

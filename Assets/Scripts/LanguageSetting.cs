@@ -26,9 +26,29 @@ public class LanguageSelection : MonoBehaviour
         PlayerPrefs.SetString("Language", selectedLanguage);
         PlayerPrefs.Save();
 
+        // Output for testing purposes
+        Debug.Log("[ACTION] Selected Language: " + selectedLanguage);
+        DebugPlayerPrefs();
+
+
         // TODO 
         // actually change the language that's loaded
 
-        Debug.Log("Selected Language: " + selectedLanguage);
+    }
+
+    private void DebugPlayerPrefs()
+    {
+        if (PlayerPrefs.HasKey("MasterVolume"))
+        {
+            Debug.Log("PlayerPrefs - MasterVolume: " +  PlayerPrefs.GetFloat("MasterVolume"));
+        }
+        if (PlayerPrefs.HasKey("ResolutionPrefKey"))
+        {
+            Debug.Log("PlayerPrefs - Resolution: "  +  PlayerPrefs.GetInt("ResolutionPrefKey"));
+        }
+        if (PlayerPrefs.HasKey("Language"))
+        {
+            Debug.Log("PlayerPrefs - Language: " +  PlayerPrefs.GetString("Language"));
+        }
     }
 }

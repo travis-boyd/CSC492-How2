@@ -40,6 +40,26 @@ public class ResolutionDropdown : MonoBehaviour
             // Save the chosen resolution to PlayerPrefs
             PlayerPrefs.SetInt("ResolutionPrefKey", resolutionIndex);
             PlayerPrefs.Save();
+
+            // Output for testing purposes
+            Debug.Log("[ACTION] Selected Resolution: " + resolutionIndex);
+            DebugPlayerPrefs();
+        }
+    }
+
+    private void DebugPlayerPrefs()
+    {
+        if (PlayerPrefs.HasKey("MasterVolume"))
+        {
+            Debug.Log("PlayerPrefs - MasterVolume: " +  PlayerPrefs.GetFloat("MasterVolume"));
+        }
+        if (PlayerPrefs.HasKey("ResolutionPrefKey"))
+        {
+            Debug.Log("PlayerPrefs - Resolution: "  +  PlayerPrefs.GetInt("ResolutionPrefKey"));
+        }
+        if (PlayerPrefs.HasKey("Language"))
+        {
+            Debug.Log("PlayerPrefs - Language: " +  PlayerPrefs.GetString("Language"));
         }
     }
 }
