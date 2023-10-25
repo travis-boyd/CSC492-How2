@@ -62,8 +62,8 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void SwitchCameraStyle(CameraStyle newStyle)
     {
-        basicCam.SetActive(false);
         combatCam.SetActive(false);
+        basicCam.SetActive(false);
 
         if (newStyle == CameraStyle.Basic) basicCam.SetActive(true);
         if (newStyle == CameraStyle.Combat) combatCam.SetActive(true);
