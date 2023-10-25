@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    private Animator animator;
+    public GameObject playerObject;
+
     [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
+    // public bool isIdle = true;
     
     public float groundDrag;
 
@@ -20,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode forwardKey = KeyCode.W;
+    public KeyCode backwardKey = KeyCode.S;
+    public KeyCode rightKey = KeyCode.D;
+    public KeyCode leftKey = KeyCode.A;
+
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -40,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     {
         walking,
         sprinting,
+        idle,
         air
     }
 
@@ -49,6 +60,9 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+
+        //animation
+        animator = playerObject.GetComponent<Animator>();
     }
 
     private void Update()
@@ -62,14 +76,21 @@ public class PlayerMovement : MonoBehaviour
 
         //Handle drag
         if (state == MovementState.walking || state == MovementState.sprinting)
+        {
             rb.drag = groundDrag;
+
+        }
         else
+        {
             rb.drag = 0;
+        }
+            
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
+        Animation();
     }
 
     private void MyInput()
@@ -105,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.walking;
             moveSpeed = walkSpeed;
         }
-
         // Mode - Air
         else
         {
@@ -148,5 +168,26 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void Animation()
+    {
+
+        if (grounded && verticalInput != 0 || horizontalInput != 0)
+        {
+            animator.SetBool("isMoving", true);
+        } else if(grounded && state == MovementState.sprinting)
+        {
+            animator.SetBool("isSprinting", true);
+        } else if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        {
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+            animator.SetBool("isSprinting", false);
+            animator.SetBool("isJumping", false);
+        }
     }
 }
