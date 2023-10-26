@@ -40,7 +40,7 @@ public class ThirdPersonCam : MonoBehaviour
         Vector3 viewDirection = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDirection.normalized;
 
-        // roate player object
+        // rotate player object
         if (currentStyle == CameraStyle.Basic)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
@@ -48,7 +48,11 @@ public class ThirdPersonCam : MonoBehaviour
             Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
             if (inputDirection != Vector3.zero)
+            {
                 playerObj.forward = Vector3.Slerp(playerObj.forward, inputDirection.normalized, Time.deltaTime * rotationSpeed);
+            }
+                
+
         }
 
         else if (currentStyle == CameraStyle.Combat)
