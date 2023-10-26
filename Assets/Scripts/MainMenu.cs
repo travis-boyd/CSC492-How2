@@ -72,6 +72,8 @@ public class MainMenu : MonoBehaviour
         // which stages are unlocked.
 
         // This could be a clever single efficient string, but this way is dummy proof?
+        // When a level is completed successfully, we'll simply use PlayerPrefs to 
+        // save that completion record to local data.
         int prog_movement_easy = PlayerPrefs.GetInt("prog_movement_easy", 0);
         int prog_movement_medium = PlayerPrefs.GetInt("prog_movement_medium", 0);
         int prog_movement_hard = PlayerPrefs.GetInt("prog_movement_hard", 0);
