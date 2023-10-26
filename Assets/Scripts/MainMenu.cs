@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
     private static int DEFAULT_RES_WIDTH = 1920;
     private static int DEFAULT_RES_HEIGHT = 1080;
 
+    public TextMeshProUGUI moveMediumBox;
+
     private void Start()
     {
         // Load any settings that were saved from previous sessions
         LoadSettings();
+        LoadProgression();
     }
     public void PlayGame ()
     {
@@ -58,5 +62,33 @@ public class MainMenu : MonoBehaviour
         // 3. Language
         string languageIndexPref = PlayerPrefs.GetString("SelectedLanguage");
         // TODO change the language
+    }
+
+    private void LoadProgression()
+    {
+        // Load progression from PlayerPrefs
+        // Progression includes info on which stages
+        // the player has already beaten. It determines
+        // which stages are unlocked.
+
+        // This could be a clever single efficient string, but this way is dummy proof?
+        int prog_movement_easy = PlayerPrefs.GetInt("prog_movement_easy", 0);
+        int prog_movement_medium = PlayerPrefs.GetInt("prog_movement_medium", 0);
+        int prog_movement_hard = PlayerPrefs.GetInt("prog_movement_hard", 0);
+        int prog_health_easy = PlayerPrefs.GetInt("prog_health_easy", 0);
+        int prog_health_medium = PlayerPrefs.GetInt("prog_health_medium", 0);
+        int prog_health_hard = PlayerPrefs.GetInt("prog_health_hard", 0);
+        int prog_damage_easy = PlayerPrefs.GetInt("prog_damage_easy", 0);
+        int prog_damage_medium = PlayerPrefs.GetInt("prog_damage_medium", 0);
+        int prog_damage_hard = PlayerPrefs.GetInt("prog_damage_hard", 0);
+        
+
+        // quick proof of concept
+        if (prog_movement_easy == 0)
+        {
+            Color grayColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+            moveMediumBox.color = grayColor;
+            moveMediumBox.text = "LOCKED";
+        }
     }
 }
