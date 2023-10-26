@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -10,6 +11,7 @@ public class MainMenu : MonoBehaviour
     private static int DEFAULT_RES_HEIGHT = 1080;
 
     public TextMeshProUGUI moveMediumBox;
+    public Button button_1_1, button_1_2, button_1_3, button_2_1, button_2_2, button_2_3, button_3_1, button_3_2, button_3_3;
 
     private void Start()
     {
@@ -74,23 +76,44 @@ public class MainMenu : MonoBehaviour
         // This could be a clever single efficient string, but this way is dummy proof?
         // When a level is completed successfully, we'll simply use PlayerPrefs to 
         // save that completion record to local data.
-        int prog_movement_easy = PlayerPrefs.GetInt("prog_movement_easy", 0);
-        int prog_movement_medium = PlayerPrefs.GetInt("prog_movement_medium", 0);
-        int prog_movement_hard = PlayerPrefs.GetInt("prog_movement_hard", 0);
-        int prog_health_easy = PlayerPrefs.GetInt("prog_health_easy", 0);
-        int prog_health_medium = PlayerPrefs.GetInt("prog_health_medium", 0);
-        int prog_health_hard = PlayerPrefs.GetInt("prog_health_hard", 0);
-        int prog_damage_easy = PlayerPrefs.GetInt("prog_damage_easy", 0);
-        int prog_damage_medium = PlayerPrefs.GetInt("prog_damage_medium", 0);
-        int prog_damage_hard = PlayerPrefs.GetInt("prog_damage_hard", 0);
+        int prog_1_1 = PlayerPrefs.GetInt("prog_1_1", 0);
+        int prog_1_2 = PlayerPrefs.GetInt("prog_1_2", 0);
+        int prog_1_3 = PlayerPrefs.GetInt("prog_1_3", 0);
+        int prog_2_1 = PlayerPrefs.GetInt("prog_2_1", 0);
+        int prog_2_2 = PlayerPrefs.GetInt("prog_2_2", 0);
+        int prog_2_3 = PlayerPrefs.GetInt("prog_2_3", 0);
+        int prog_3_1 = PlayerPrefs.GetInt("prog_3_1", 0);
+        int prog_3_2 = PlayerPrefs.GetInt("prog_3_2", 0);
+        int prog_3_3 = PlayerPrefs.GetInt("prog_3_3", 0);
         
 
-        // quick proof of concept
-        if (prog_movement_easy == 0)
+        /* quick proof of concept
+        Color grayColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+        if (prog_1_2 == 0)
         {
-            Color grayColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
             moveMediumBox.color = grayColor;
             moveMediumBox.text = "LOCKED";
         }
+        */
+
+        // This is the dumbest possible way to do this lol
+        if (prog_1_1  == 0) deactivateButton(button_1_2);
+        if (prog_1_2  == 0) deactivateButton(button_1_3);
+        if (prog_1_3  == 0) deactivateButton(button_2_1);
+        if (prog_1_1  == 0) deactivateButton(button_1_2);
+        if (prog_2_1  == 0) deactivateButton(button_2_2);
+        if (prog_2_2  == 0) deactivateButton(button_2_3);
+        if (prog_2_3  == 0) deactivateButton(button_3_1);
+        if (prog_3_1  == 0) deactivateButton(button_3_2);
+        if (prog_3_2  == 0) deactivateButton(button_3_3);
+         
+    }
+
+    private void deactivateButton(Button button)
+    {
+        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.color = Color.grey;
+        buttonText.text = "LOCKED"; 
+        
     }
 }
