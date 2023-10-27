@@ -24,8 +24,23 @@ public class ObjectiveManager : MonoBehaviour
 
     void UIAddObjective(Objective objective)
     {
-        objectives.Add(objective);
+        // If there are already 4 objectives in the UI, it is too full
+        if (UIObjectiveCount > 3)
+        {
+            Debug.LogError("Error: objectives panel full");
+            return;
+        }
+
+        // Otherwise, add objective to the last slot using the UIObjectiveCount
+        int index = UIObjectiveCount;
         UIObjectiveCount += 1;
+
+        titleTexts[index] = objective.title;
+        descriptionTexts[index] = objective.description;
+        if (objective.isComplete)
+        {
+            UICompleteObjective(objective);
+        }
 
     }
 
@@ -35,16 +50,12 @@ public class ObjectiveManager : MonoBehaviour
         UIObjectiveCount -= 1;
     }
 
-    void CompleteObjective(Objective objective)
+    void UICompleteObjective(Objective objective)
     {
         // doesn't remove it from the UI, but greys it out/crosses it out
         // implement this method
     }
 
-    void UpdateObjectiveUI()
-    {
-        // implement this method
-    }
 
     void UIInitialize()
     {
@@ -64,11 +75,6 @@ public class ObjectiveManager : MonoBehaviour
                     {
                         titleTexts[i] = child.Find("Objective Title Text").GetComponent<TMP_Text>();
                         descriptionTexts[i] = child.Find("Objective Description Text").GetComponent<TMP_Text>();
-                        // You can access titleTexts[i] and descriptionTexts[i] as needed.
-
-                        //test - worked 
-                        // titleTexts[i].text = "test poop";
-                        // descriptionTexts[i].text = "teesstt pooooopp";
                     }
                 }
             }
@@ -78,11 +84,11 @@ public class ObjectiveManager : MonoBehaviour
             Debug.LogError("Panel reference is not set!");
         }
 
-        Debug.Log("changing a few texts...");
-        titleTexts[2].text = "Objective 3!!!";
-        descriptionTexts[2].text = "and its description";
-        titleTexts[3].enabled = false;
-        descriptionTexts[3].enabled = false;
+        // You can use it like this to manipulate the HUD:
+            // titleTexts[2].text = "Changing Objective 3's Title";
+            // descriptionTexts[2].text = "and its description.";
+            // titleTexts[3].enabled = false;
+            // descriptionTexts[3].enabled = false;
 
     }
 }
