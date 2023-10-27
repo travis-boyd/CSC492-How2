@@ -36,7 +36,10 @@ public class ObjectiveManager : MonoBehaviour
         UIObjectiveCount += 1;
 
         titleTexts[index].text = objective.title;
+        titleTexts[index].enabled = true;
+        descriptionTexts[index].enabled = true;
         descriptionTexts[index].text = objective.description;
+        
         if (objective.isComplete)
         {
             UICompleteObjective(objective);
@@ -96,6 +99,10 @@ public class ObjectiveManager : MonoBehaviour
                     {
                         titleTexts[i] = child.Find("Objective Title Text").GetComponent<TMP_Text>();
                         descriptionTexts[i] = child.Find("Objective Description Text").GetComponent<TMP_Text>();
+
+                        // make sure they're not visible
+                        titleTexts[i].enabled = false;
+                        descriptionTexts[i].enabled = false;
                     }
                 }
             }
