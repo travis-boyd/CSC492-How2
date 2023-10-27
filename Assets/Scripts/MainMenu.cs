@@ -10,7 +10,6 @@ public class MainMenu : MonoBehaviour
     private static int DEFAULT_RES_WIDTH = 1920;
     private static int DEFAULT_RES_HEIGHT = 1080;
 
-    public TextMeshProUGUI moveMediumBox;
     public Button button_1_1, button_1_2, button_1_3, button_2_1, button_2_2, button_2_3, button_3_1, button_3_2, button_3_3;
 
     private void Start()
@@ -76,18 +75,19 @@ public class MainMenu : MonoBehaviour
         // This could be a clever single efficient string, but this way is dummy proof?
         // When a level is completed successfully, we'll simply use PlayerPrefs to 
         // save that completion record to local data.
-        int prog_1_1 = PlayerPrefs.GetInt("prog_1_1", 0);
-        int prog_1_2 = PlayerPrefs.GetInt("prog_1_2", 0);
-        int prog_1_3 = PlayerPrefs.GetInt("prog_1_3", 0);
-        int prog_2_1 = PlayerPrefs.GetInt("prog_2_1", 0);
-        int prog_2_2 = PlayerPrefs.GetInt("prog_2_2", 0);
-        int prog_2_3 = PlayerPrefs.GetInt("prog_2_3", 0);
-        int prog_3_1 = PlayerPrefs.GetInt("prog_3_1", 0);
-        int prog_3_2 = PlayerPrefs.GetInt("prog_3_2", 0);
-        int prog_3_3 = PlayerPrefs.GetInt("prog_3_3", 0);
+        int prog_1_1 = PlayerPrefs.GetInt("progression_1_1", 0);
+        int prog_1_2 = PlayerPrefs.GetInt("progression_1_2", 0);
+        int prog_1_3 = PlayerPrefs.GetInt("progression_1_3", 0);
+        int prog_2_1 = PlayerPrefs.GetInt("progression_2_1", 0);
+        int prog_2_2 = PlayerPrefs.GetInt("progression_2_2", 0);
+        int prog_2_3 = PlayerPrefs.GetInt("progression_2_3", 0);
+        int prog_3_1 = PlayerPrefs.GetInt("progression_3_1", 0);
+        int prog_3_2 = PlayerPrefs.GetInt("progression_3_2", 0);
+        int prog_3_3 = PlayerPrefs.GetInt("progression_3_3", 0);
         
 
         /* quick proof of concept
+        public TextMeshProUGUI moveMediumBox;
         Color grayColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
         if (prog_1_2 == 0)
         {
@@ -106,7 +106,6 @@ public class MainMenu : MonoBehaviour
         if (prog_2_3  == 0) deactivateButton(button_3_1);
         if (prog_3_1  == 0) deactivateButton(button_3_2);
         if (prog_3_2  == 0) deactivateButton(button_3_3);
-         
     }
 
     private void deactivateButton(Button button)
