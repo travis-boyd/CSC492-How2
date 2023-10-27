@@ -1,21 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-public class Objective
-{
-    public string title;
-    public string description;
-    public bool isComplete;
-
-    public Objective(string title, string description)
-    {
-        this.title = title;
-        this.description = description;
-        this.isComplete = false;
-    }
-}
+using TMPro;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -33,6 +19,7 @@ public class ObjectiveManager : MonoBehaviour
         // examples:
         UIAddObjective(new Objective("key", "Find and collect the special key."));
         UIAddObjective(new Objective("boss", "Conquer the level boss."));
+        UIInitialize();
     }
 
     void UIAddObjective(Objective objective)
@@ -67,7 +54,7 @@ public class ObjectiveManager : MonoBehaviour
             titleTexts = new TMP_Text[4];
             descriptionTexts = new TMP_Text[4];
 
-            Transform[] objectiveObjects = panel.GetComponentsInChildren<Transform>();
+            Transform[] objectiveObjects = objectivePanel.GetComponentsInChildren<Transform>();
 
             for (int i = 0; i < 4; i++)
             {
@@ -75,13 +62,13 @@ public class ObjectiveManager : MonoBehaviour
                 {
                     if (child.name == "Objective " + (i + 1))
                     {
-                        titleTexts[i] = child.Find("Title Text").GetComponent<TMP_Text>();
-                        descriptionTexts[i] = child.Find("Description Text").GetComponent<TMP_Text>();
+                        titleTexts[i] = child.Find("Objective Title Text").GetComponent<TMP_Text>();
+                        descriptionTexts[i] = child.Find("Objective Description Text").GetComponent<TMP_Text>();
                         // You can access titleTexts[i] and descriptionTexts[i] as needed.
 
-                        //test
-                        titleTexts[i].text = "test poop";
-                        descriptionTexts[i].text = "teesstt pooooopp";
+                        //test - worked 
+                        // titleTexts[i].text = "test poop";
+                        // descriptionTexts[i].text = "teesstt pooooopp";
                     }
                 }
             }
@@ -91,6 +78,11 @@ public class ObjectiveManager : MonoBehaviour
             Debug.LogError("Panel reference is not set!");
         }
 
-        Debug.Log("yay");
+        Debug.Log("changing a few texts...");
+        titleTexts[2].text = "Objective 3!!!";
+        descriptionTexts[2].text = "and its description";
+        titleTexts[3].enabled = false;
+        descriptionTexts[3].enabled = false;
+
     }
 }
