@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
     private int UIObjectiveCount = 0;
+
+    // testing
+    public Button testButton;
+
 
     public GameObject objectivePanel; // Reference to the Panel containing the TMP Textboxes
     private TMP_Text[] titleTexts; // Array to store the Title Text TMP Text components
@@ -15,11 +20,10 @@ public class ObjectiveManager : MonoBehaviour
 
     void Start()
     {
-        // Initialize the objectives that will be active when the level starts
-        // examples:
-        UIAddObjective(new Objective("key", "Find and collect the special key."));
-        UIAddObjective(new Objective("boss", "Conquer the level boss."));
         UIInitialize();
+
+        //testing
+        testButton.onClick.AddListener(Test);
     }
 
     void UIAddObjective(Objective objective)
@@ -35,8 +39,8 @@ public class ObjectiveManager : MonoBehaviour
         int index = UIObjectiveCount;
         UIObjectiveCount += 1;
 
-        titleTexts[index] = objective.title;
-        descriptionTexts[index] = objective.description;
+        titleTexts[index].text = objective.title;
+        descriptionTexts[index].text = objective.description;
         if (objective.isComplete)
         {
             UICompleteObjective(objective);
@@ -46,12 +50,33 @@ public class ObjectiveManager : MonoBehaviour
 
     void UIRemoveObjective(Objective objective)
     {
-        // implement this method
-        UIObjectiveCount -= 1;
+        // Find the index of the objective to remove
+        int indexToRemove = getObjectiveIndex(objective);
+
+        // If there are active objectives after the one we're removing,
+        // shift them all forward, overwriting the previous
+        for (int i = indexToRemove; i < UIObjectiveCount - 1; i++)
+        {
+            titleTexts[i] = titleTexts[i + 1];
+            descriptionTexts[i] = descriptionTexts[i + 1];
+        }
+        // If it's the final active objective, simply deactivate it
+       
+        // remove final objective
+        titleTexts[UIObjectiveCount].enabled = false;
+        descriptionTexts[UIObjectiveCount].enabled = false;
+        UIObjectiveCount--;
     }
 
     void UICompleteObjective(Objective objective)
     {
+        int indexToComplete = getObjectiveIndex(objective);
+        titleTexts[indexToComplete].color = Color.gray;
+        titleTexts[indexToComplete].fontStyle |= FontStyles.Strikethrough;
+        descriptionTexts[indexToComplete].color = Color.gray;
+        descriptionTexts[indexToComplete].fontStyle |= FontStyles.Strikethrough;
+
+
         // doesn't remove it from the UI, but greys it out/crosses it out
         // implement this method
     }
@@ -61,7 +86,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (objectivePanel != null)
         {
-            // Initialize arrays to store TMP Text components
+            // Initialize arrays to store TMP Textboxes 
             titleTexts = new TMP_Text[4];
             descriptionTexts = new TMP_Text[4];
 
@@ -90,5 +115,26 @@ public class ObjectiveManager : MonoBehaviour
             // titleTexts[3].enabled = false;
             // descriptionTexts[3].enabled = false;
 
+    }
+
+    private int getObjectiveIndex(Objective objective)
+    {
+        // Find the index of the objective in the two lists of textboxes
+        for (int i = 0; i < UIObjectiveCount; i++)
+        {
+            if (titleTexts[i].text == objective.title && descriptionTexts[i].text == objective.description)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void Test()
+    {
+        Debug.Log("Deleting entry #1");
+        Debug.Log("Deleting " + titleTexts[0].text);
+
+        UIRemoveObjective(objectives[0]);
     }
 }
