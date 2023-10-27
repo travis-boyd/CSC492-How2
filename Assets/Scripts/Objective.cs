@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Objective
 {
-    public string title;
+    public string title; 
     public string description;
     public bool isComplete;
 

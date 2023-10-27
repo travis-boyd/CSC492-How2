@@ -7,26 +7,22 @@ using TMPro;
 public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
-    private int UIObjectiveCount = 0;
+    public int UIObjectiveCount = 0;
 
-    // testing
-    public Button testButton;
 
 
     public GameObject objectivePanel; // Reference to the Panel containing the TMP Textboxes
-    private TMP_Text[] titleTexts; // Array to store the Title Text TMP Text components
-    private TMP_Text[] descriptionTexts; // Array to store the Description Text TMP Text components
+    public TMP_Text[] titleTexts; // Array to store the Title Text TMP Text components
+    public TMP_Text[] descriptionTexts; // Array to store the Description Text TMP Text components
 
 
     void Start()
     {
         UIInitialize();
 
-        //testing
-        testButton.onClick.AddListener(Test);
     }
 
-    void UIAddObjective(Objective objective)
+    public void UIAddObjective(Objective objective)
     {
         // If there are already 4 objectives in the UI, it is too full
         if (UIObjectiveCount > 3)
