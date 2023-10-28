@@ -8,7 +8,6 @@ public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
     public int UIObjectiveCount = 0;
-    public RectTransform panelRectTransform;
 
 
 
@@ -20,6 +19,8 @@ public class ObjectiveManager : MonoBehaviour
     void Start()
     {
         UIInitialize();
+
+        // testing
         UIAddObjective(new Objective("title1","description1"));
         UIAddObjective(new Objective("title2","description2"));
         UIAddObjective(new Objective("title3","description3"));
@@ -46,6 +47,7 @@ public class ObjectiveManager : MonoBehaviour
         descriptionTexts[index].text = objective.description;
 
         // increase the size of the panel
+        RectTransform panelRectTransform = objectivePanel.GetComponent<RectTransform>();
         panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, panelRectTransform.sizeDelta.y + 10f);
 
         if (objective.isComplete)
@@ -53,35 +55,40 @@ public class ObjectiveManager : MonoBehaviour
             UICompleteObjective(objective);
         }
 
+        // make sure panel isn't hidden
+        objectivePanel.enabled = true;
+
     }
 
     public void UIRemoveObjective(Objective objective)
     {
         // Find the index of the objective to remove
         int indexToRemove = getObjectiveIndex(objective);
-        Debug.Log("getObjectiveIndex(objective): " + indexToRemove);
+        if (indexToRemove == -1)
+        {
+            Debug.LogError("Error: objective not found");
+            return;
+        }
 
         // If there are active objectives after the one we're removing,
         // shift them all forward, overwriting the previous
         for (int i = indexToRemove; i < 3; i++)
         {
-            Debug.Log("i="+i);
-            Debug.Log("titletexts[i].text: " + titleTexts[i].text);
-            Debug.Log("titletexts[i+1].text: " + titleTexts[i+1].text);
-            Debug.Log("descriptionTexts[i].text: " + descriptionTexts[i].text);
-            Debug.Log("descriptionTexts[i+1].text: " + descriptionTexts[i+1].text);
-            
             titleTexts[i].text = titleTexts[i + 1].text;
             descriptionTexts[i].text = descriptionTexts[i + 1].text;
         }
-        // If it's the final active objective, simply deactivate it
-       
+
         // remove final objective
         titleTexts[UIObjectiveCount - 1].enabled = false;
         descriptionTexts[UIObjectiveCount - 1].enabled = false;
-        UIObjectiveCount--; 
+        UIObjectiveCount--;
 
+        RectTransform panelRectTransform = objectivePanel.GetComponent<RectTransform>();
         panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, panelRectTransform.sizeDelta.y - 10f);
+        if (UIObjectiveCount == 0)
+        {
+            objectivePanel.active = false;
+        }
 
     }
 
@@ -102,7 +109,9 @@ public class ObjectiveManager : MonoBehaviour
     void UIInitialize()
     {
         // set the panel height to 5 (empty)
+        RectTransform panelRectTransform = objectivePanel.GetComponent<RectTransform>();
         panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, 5f);
+        objectivePanel.enabled = false;
 
         if (objectivePanel != null)
         {
@@ -152,13 +161,5 @@ public class ObjectiveManager : MonoBehaviour
             }
         }
         return -1;
-    }
-
-    private void Test()
-    {
-        Debug.Log("Deleting entry #1");
-        Debug.Log("Deleting " + titleTexts[0].text);
-
-        UIRemoveObjective(objectives[0]);
     }
 }
