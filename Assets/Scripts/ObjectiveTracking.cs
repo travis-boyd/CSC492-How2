@@ -8,6 +8,7 @@ public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
     public int UIObjectiveCount = 0;
+    public RectTransform panelRectTransform;
 
 
 
@@ -19,6 +20,10 @@ public class ObjectiveManager : MonoBehaviour
     void Start()
     {
         UIInitialize();
+        UIAddObjective(new Objective("title1","description1"));
+        UIAddObjective(new Objective("title2","description2"));
+        UIAddObjective(new Objective("title3","description3"));
+        UIAddObjective(new Objective("title4","description4"));
 
     }
 
@@ -39,7 +44,10 @@ public class ObjectiveManager : MonoBehaviour
         titleTexts[index].enabled = true;
         descriptionTexts[index].enabled = true;
         descriptionTexts[index].text = objective.description;
-        
+
+        // increase the size of the panel
+        panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, panelRectTransform.sizeDelta.y + 10f);
+
         if (objective.isComplete)
         {
             UICompleteObjective(objective);
@@ -47,24 +55,34 @@ public class ObjectiveManager : MonoBehaviour
 
     }
 
-    void UIRemoveObjective(Objective objective)
+    public void UIRemoveObjective(Objective objective)
     {
         // Find the index of the objective to remove
         int indexToRemove = getObjectiveIndex(objective);
+        Debug.Log("getObjectiveIndex(objective): " + indexToRemove);
 
         // If there are active objectives after the one we're removing,
         // shift them all forward, overwriting the previous
-        for (int i = indexToRemove; i < UIObjectiveCount - 1; i++)
+        for (int i = indexToRemove; i < 3; i++)
         {
-            titleTexts[i] = titleTexts[i + 1];
-            descriptionTexts[i] = descriptionTexts[i + 1];
+            Debug.Log("i="+i);
+            Debug.Log("titletexts[i].text: " + titleTexts[i].text);
+            Debug.Log("titletexts[i+1].text: " + titleTexts[i+1].text);
+            Debug.Log("descriptionTexts[i].text: " + descriptionTexts[i].text);
+            Debug.Log("descriptionTexts[i+1].text: " + descriptionTexts[i+1].text);
+            
+            titleTexts[i].text = titleTexts[i + 1].text;
+            descriptionTexts[i].text = descriptionTexts[i + 1].text;
         }
         // If it's the final active objective, simply deactivate it
        
         // remove final objective
-        titleTexts[UIObjectiveCount].enabled = false;
-        descriptionTexts[UIObjectiveCount].enabled = false;
-        UIObjectiveCount--;
+        titleTexts[UIObjectiveCount - 1].enabled = false;
+        descriptionTexts[UIObjectiveCount - 1].enabled = false;
+        UIObjectiveCount--; 
+
+        panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, panelRectTransform.sizeDelta.y - 10f);
+
     }
 
     void UICompleteObjective(Objective objective)
@@ -83,6 +101,9 @@ public class ObjectiveManager : MonoBehaviour
 
     void UIInitialize()
     {
+        // set the panel height to 5 (empty)
+        panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, 5f);
+
         if (objectivePanel != null)
         {
             // Initialize arrays to store TMP Textboxes 
