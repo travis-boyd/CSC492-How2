@@ -12,12 +12,14 @@ public class Entity : MonoBehaviour
 
     public int walkSpeed;
 
-    public void Start()
+    public Entity(string name, string descr, int maxHealth)
     {
-        currentHP = maxHP;
+        entity_name = name;
+        description = descr;
+        maxHP = maxHealth;
     }
 
-    protected virtual void TakeDamage(int damageAmount)
+    public void Initialize()
     {
         currentHP = currentHP - damageAmount;
         if (currentHP <= 0)
