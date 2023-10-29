@@ -5,6 +5,7 @@ public class Player : Entity
 {
     public int damage;
     public Slider healthBarSlider;
+    public Weapon equippedWeapon;
     
     //   Inherited data:
     // public string entity_name;
@@ -31,12 +32,17 @@ public class Player : Entity
             healthBarSlider.value = currentHP;
         }
     }
+    
+    public void EquipWeapon(Weapon weapon)
+    {
+        equippedWeapon = weapon;
+    }
 
     public override void TakeDamage(int damage)
     {
         // Update GUI
         if (currentHP > damage)
-        {=
+        {
             healthBarSlider.value -= damage;
         }
 
