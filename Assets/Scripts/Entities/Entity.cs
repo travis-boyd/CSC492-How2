@@ -21,6 +21,11 @@ public class Entity : MonoBehaviour
 
     public void Initialize()
     {
+        currentHP = maxHP;
+    }
+
+    public virtual void TakeDamage(int damageAmount)
+    {
         currentHP = currentHP - damageAmount;
         if (currentHP <= 0)
         {
