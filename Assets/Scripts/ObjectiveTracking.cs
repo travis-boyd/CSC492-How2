@@ -56,7 +56,7 @@ public class ObjectiveManager : MonoBehaviour
         }
 
         // make sure panel isn't hidden
-        objectivePanel.enabled = true;
+        objectivePanel.SetActive(true);
 
     }
 
@@ -87,7 +87,7 @@ public class ObjectiveManager : MonoBehaviour
         panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, panelRectTransform.sizeDelta.y - 10f);
         if (UIObjectiveCount == 0)
         {
-            objectivePanel.active = false;
+            objectivePanel.SetActive(false);
         }
 
     }
@@ -111,7 +111,7 @@ public class ObjectiveManager : MonoBehaviour
         // set the panel height to 5 (empty)
         RectTransform panelRectTransform = objectivePanel.GetComponent<RectTransform>();
         panelRectTransform.sizeDelta = new Vector2(panelRectTransform.sizeDelta.x, 5f);
-        objectivePanel.enabled = false;
+        objectivePanel.SetActive(false);
 
         if (objectivePanel != null)
         {
