@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
         equippedMissile = missile;
     }
 
-    public void Fire(Vector3 targetDirection)
+    public void Fire()
     {
         if (equippedMissile != null)
         {
@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Weapon tried to Fire, but doesn't have a Missile.");
+            Debug.LogError("Fire() error: Weapon tried to Fire, but doesn't have a Missile.");
         }
     }
 

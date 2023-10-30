@@ -7,12 +7,6 @@ public class Player : Entity
     public Slider healthBarSlider;
     public Weapon equippedWeapon;
     
-    //   Inherited data:
-    // public string entity_name;
-    // public string description;
-    // public float maxHP;
-    // public float currentHP;
-    // public float walkSpeed;
 
 
     private new void Start()
@@ -34,6 +28,18 @@ public class Player : Entity
     public void EquipWeapon(Weapon weapon)
     {
         equippedWeapon = weapon;
+    }
+
+    public void FireWeapon()
+    {
+        if (equippedWeapon == null)
+        {
+            Debug.LogError("FireWeapon() error: No weapon equpped.");
+        }
+        else
+        {
+            equippedWeapon.Fire();
+        }
     }
 
     public override void TakeDamage(float damage)
