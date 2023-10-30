@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public string name;
-    public Missile equipedMissile;
+    public string weaponName;
+    public Missile equippedMissile;
+
+    private void Start()
+    {
+        weaponName = name;
+    }
 
     //Change Missiles
     public void EquipMissile(Missile missile)
@@ -19,11 +24,11 @@ public class Weapon : MonoBehaviour
         {
             // Instantiate the missile and set its speed and direction
             Missile missileInstance = Instantiate(equippedMissile, transform.position, Quaternion.identity);
-            missileInstance.SetDirectionAndFire(targetDirection);
         }
         else
         {
             Debug.LogError("Weapon tried to Fire, but doesn't have a Missile.");
         }
     }
+
 }

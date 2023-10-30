@@ -4,18 +4,16 @@ public class Mob : Entity
 {
     public int damage;
 
-    public Mob(string name, string description, int maxHP) : base(name, description, maxHP)
+    public void Start()
     {
-        base.name = name;
-        base.description = description;
-        base.maxHP = maxHP;
+        base.Start();
+        Initialize();
     }
-    private new void Initialize()
+
+    public void Initialize()
     {
-        // base.Initialize(): "currentHP = maxHP;"
-        base.Initialize(); 
+        // Mob specific init
     }
-    
 
     protected override void Die()
     {

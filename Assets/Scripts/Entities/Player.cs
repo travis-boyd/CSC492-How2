@@ -3,28 +3,26 @@ using UnityEngine.UI;
 
 public class Player : Entity
 {
-    public int damage;
+    public float damage;
     public Slider healthBarSlider;
     public Weapon equippedWeapon;
     
     //   Inherited data:
     // public string entity_name;
     // public string description;
-    // public int maxHP;
-    // public int currentHP;
-    // public int walkSpeed;
+    // public float maxHP;
+    // public float currentHP;
+    // public float walkSpeed;
 
-    public Player(string name, string description, int maxHP) : base(name, description, maxHP)
-    {
-        base.name = name;
-        base.description = description;
-        base.maxHP = maxHP;
-    }
-    private new void Initialize()
+
+    private new void Start()
     {
         // base.Initialize(): "currentHP = maxHP;"
-        base.Initialize();
-
+        base.Start();
+        Initialize();
+    }
+    private void Initialize()
+    {
         // GUI Healthbar setup:
         if (healthBarSlider != null)
         {
@@ -38,7 +36,7 @@ public class Player : Entity
         equippedWeapon = weapon;
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         // Update GUI
         if (currentHP > damage)
