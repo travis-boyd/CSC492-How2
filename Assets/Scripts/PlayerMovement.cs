@@ -27,10 +27,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    /*public KeyCode forwardKey = KeyCode.W;
+    public KeyCode forwardKey = KeyCode.W;
     public KeyCode backwardKey = KeyCode.S;
     public KeyCode rightKey = KeyCode.D;
-    public KeyCode leftKey = KeyCode.A;*/
+    public KeyCode leftKey = KeyCode.A;
 
 
     [Header("Ground Check")]
