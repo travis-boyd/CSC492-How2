@@ -27,10 +27,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode forwardKey = KeyCode.W;
+    /*public KeyCode forwardKey = KeyCode.W;
     public KeyCode backwardKey = KeyCode.S;
     public KeyCode rightKey = KeyCode.D;
-    public KeyCode leftKey = KeyCode.A;
+    public KeyCode leftKey = KeyCode.A;*/
 
 
     [Header("Ground Check")]
@@ -81,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
 
         jumpAnimation();
         MyInput();
-        SpeedControl();
         StateHandler();
         Animation();
         
@@ -121,7 +120,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    bool keepMomentum;
     private void StateHandler()
     {
 
@@ -189,7 +187,6 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         rb.AddForce(Vector3.down * 400f, ForceMode.Force);
-
     }
     private void ResetJump()
     {
