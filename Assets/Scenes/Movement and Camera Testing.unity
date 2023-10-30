@@ -1494,9 +1494,9 @@ MonoBehaviour:
   walkSpeed: 7
   sprintSpeed: 10
   groundDrag: 5
-  jumpForce: 10
+  jumpForce: 12
   jumpCooldown: 1
-  airMultiplier: 0.2
+  airMultiplier: 0.5
   jumpKey: 32
   sprintKey: 304
   forwardKey: 119
@@ -1509,6 +1509,9 @@ MonoBehaviour:
     m_Bits: 1024
   orientation: {fileID: 18332606}
   state: 0
+  isJumping: 0
+  isGrounded: 1
+  ySpeed: 0
 --- !u!4 &947080716 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4311215138406165268, guid: 0895730601d0713409c210092e15bc51, type: 3}
@@ -1791,7 +1794,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162655820}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.105422184, y: -0.0046005067, z: 0.0014848757, w: 0.9944159}
+  m_LocalRotation: {x: 0.105422184, y: -0.0046004606, z: 0.0014848608, w: 0.9944159}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

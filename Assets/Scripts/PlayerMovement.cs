@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -58,6 +59,9 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
+    public float currYPos;
+    public float lastYPos;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -72,12 +76,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+        currYPos = transform.position.y; // Get current position after jump
 
+        jumpAnimation();
         MyInput();
         SpeedControl();
         StateHandler();
         Animation();
+        
 
 
         //Handle drag
@@ -107,9 +114,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-
+            lastYPos = transform.position.y; // Get last position before jump
             Jump();
-
+            lastYPos = currYPos;
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
@@ -118,25 +125,25 @@ public class PlayerMovement : MonoBehaviour
     private void StateHandler()
     {
 
-        // Mode - Sprinting
 
 
-        // Mode - Walking / Idle
         if (grounded)
         {
+            // Mode - Sprinting
             if ((Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey)) && Input.GetKey(sprintKey))
             {
                 state = MovementState.sprinting;
                 moveSpeed = sprintSpeed;
             }
+            // Mode - Walking
             else if (Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey))
             {
                 state = MovementState.walking;
                 moveSpeed = walkSpeed;
 
             }
-            // if not set player in idle state
-            else 
+            // Mode - Idle
+            else
             {
                 state = MovementState.idle;
 
@@ -174,12 +181,15 @@ public class PlayerMovement : MonoBehaviour
             }
     }
 
+    public float ySpeed;
     private void Jump()
     {
         //Reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.down * 400f, ForceMode.Force);
+
     }
     private void ResetJump()
     {
@@ -213,21 +223,10 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isSprinting", false);
         }
 
-        // check if player is jumping
-        if (grounded && Input.GetKey(jumpKey))
-        {
-            animator.SetBool("isJumping", true);
-            animator.SetBool("isGrounded", false);
-            isJumping = true;
-        } else if(!grounded && isJumping )
-        {
-            animator.SetBool("isFalling", true);
-        } else
-        {
-            animator.SetBool("isGrounded", true);
-            animator.SetBool("isJumping", false);
-            animator.SetBool("isFalling", false);
-        }
+    }
+
+    public void jumpAnimation()
+    {
 
     }
 
