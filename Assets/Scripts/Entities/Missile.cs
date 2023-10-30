@@ -4,36 +4,56 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    public int Speed;
-    public int Damage;
-    public Vector3 Direction;
-    public bool IsInMotion;
+    // When a missile is created, it immediately has a default speed and damage
+    // (from this class) and a direction (from the instantiating object).
+    // Speed and damage values must be set immediately after instantiation.
+    // Once instantiated, it needs no more handling -- if it hits an object, it will
+    // call that object's appropriate method.
+    public float Speed = 10f;
+    public float lifespan = 2f;
+    public float damage = 10f;
+    private float timer = 0;
 
-    // Constructors
-    public void Initialize(int speed, int damage)
+
+    public void SetSpeed(float newSpeed)
     {
-        this.Speed = speed;
-        this.Damage = damage;
-        IsInMotion = false;
+        Speed = newSpeed;
     }
-    public void Initialize(Missile missile)
+    public void SetDamage(float newDamage)
     {
-        Speed = missile.Speed;
-        Damage = missile.Damage;
-        IsInMotion = false;
+        damage = newDamage;
     }
-    public void SetDirectionAndFire(Vector3 newDirection)
-    {
-        Direction = newDirection.normalized;
-        IsInMotion = true;
-    }
+
+
     // Update is called once per frame
     void Update()
     {
-        /// ???
-        if (IsInMotion)
+        // move
+        transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+
+        // check if time is up
+        timer += Time.deltaTime;
+        if (timer <= lifespan)
         {
-            transform.Translate(Direction * Speed * Time.deltaTime);
+            Destroy(gameObject);
         }
+    }
+
+    void onTriggerEnter(Collider otherObject)
+    {
+        // Check for collisions
+
+        if (otherObject.CompareTag("Enemy"))
+        {
+            Mob enemy = otherObject.GetComponent<Mob>();
+            enemy.TakeDamage(damage);
+        }
+        if (otherObject.CompareTag("Environment"))
+        {
+            // handle environmental collision
+        }
+
+        // Destroy projectile
+        Destroy(gameObject);
     }
 }
