@@ -10,12 +10,12 @@ public class Weapon : MonoBehaviour
     //Change Missiles
     public void EquipMissile(Missile missile)
     {
-        equipedMissile = missile;
+        equippedMissile = missile;
     }
 
     public void Fire(Vector3 targetDirection)
     {
-        if (equipedMissile != null)
+        if (equippedMissile != null)
         {
             // Instantiate the missile and set its speed and direction
             Missile missileInstance = Instantiate(equippedMissile, transform.position, Quaternion.identity);
@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            Debug.Error("Weapon tried to Fire, but doesn't have a Missile.");
+            Debug.LogError("Weapon tried to Fire, but doesn't have a Missile.");
         }
     }
 }
