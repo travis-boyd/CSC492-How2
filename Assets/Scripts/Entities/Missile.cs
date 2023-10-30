@@ -33,13 +33,13 @@ public class Missile : MonoBehaviour
 
         // check if time is up
         timer += Time.deltaTime;
-        if (timer <= lifespan)
+        if (timer >= lifespan)
         {
             Destroy(gameObject);
         }
     }
 
-    void onTriggerEnter(Collider otherObject)
+    void OnTriggerEnter(Collider otherObject)
     {
         // Check for collisions
 

@@ -56,7 +56,7 @@ public class Player : Entity
     protected override void Die()
     {
         // Implement player-specific death behavior here
-
+        base.Die();
         healthBarSlider.value = 0;
     }
 }
