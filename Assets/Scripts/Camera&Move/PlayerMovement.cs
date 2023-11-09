@@ -7,22 +7,44 @@ using Debug = UnityEngine.Debug;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     private Animator animator;
     public GameObject playerObject;
+    public Transform orientation;
+    float horizontalInput;
+    float verticalInput;
+    Vector3 moveDirection;
+    Rigidbody rb;
+    public MovementState state;
+    /*public float currYPos;
+    public float lastYPos;*/
 
-    [Header("Movement")]
+    [Header("Movement Speed")]
     private float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
-    
     public float groundDrag;
+
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+
+    [Header("Falling")]
+    public float inAirTimer;
+    public float leapingVelocity = 0.25f;
+    public float fallingVelocity;
+    public float rayCastHeightOffSet = 0.5f;
+    public float maxDistance = 0.5f;
 
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+
+    [Header("Jump Speeds")]
+    public float jumpingHeight = 3;
+    public float gravityIntensity = -15;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -32,25 +54,6 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode rightKey = KeyCode.D;
     public KeyCode leftKey = KeyCode.A;
 
-
-    [Header("Ground Check")]
-    public float playerHeight;
-    public LayerMask whatIsGround;
-    bool grounded;
-
-    public Transform orientation;
-
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-    Rigidbody rb;
-
-    public MovementState state;
-
-    public bool isJumping;
-    public bool isGrounded;
     public enum MovementState
     {
         walking,
@@ -59,14 +62,12 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
-    public float currYPos;
-    public float lastYPos;
-
-    private void Start()
+    private void Awake()
     {
+        //animatorManager = GetComponent<AnimatorManager>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+        //grounded = true;
         readyToJump = true;
 
         //animation
@@ -77,13 +78,12 @@ public class PlayerMovement : MonoBehaviour
     {
         //Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
-        currYPos = transform.position.y; // Get current position after jump
+        //currYPos = transform.position.y; // Get current position after jump
 
         jumpAnimation();
         MyInput();
         StateHandler();
         Animation();
-        
 
 
         //Handle drag
@@ -96,12 +96,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
-            
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         MovePlayer();
+        HandleFallingAndLanding();
     }
 
     private void MyInput()
@@ -113,18 +113,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-            lastYPos = transform.position.y; // Get last position before jump
             Jump();
-            lastYPos = currYPos;
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
     private void StateHandler()
     {
-
-
-
         if (grounded)
         {
             // Mode - Sprinting
@@ -180,13 +175,37 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public float ySpeed;
+
+    private void HandleFallingAndLanding()
+    {
+        RaycastHit hit;
+        Vector3 rayCastOrigin = transform.position;
+        rayCastOrigin.y = rayCastOrigin.y + rayCastHeightOffSet;
+
+        if (!grounded)
+        {
+            inAirTimer = inAirTimer + Time.deltaTime;
+            rb.AddForce(transform.forward * leapingVelocity);
+            rb.AddForce(-Vector3.up * fallingVelocity * inAirTimer);
+        }
+
+        if (Physics.SphereCast(rayCastOrigin, 0.2f, Vector3.down, out hit, maxDistance, whatIsGround))
+        {
+            inAirTimer = 0;
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+    }
+
     private void Jump()
     {
-        //Reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        rb.AddForce(Vector3.down * 400f, ForceMode.Force);
+        float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpingHeight);
+        Vector3 playerVelocity = moveDirection;
+        playerVelocity.y = jumpingVelocity;
+        rb.velocity = playerVelocity;
     }
     private void ResetJump()
     {
