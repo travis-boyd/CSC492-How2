@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 // TODO:
@@ -101,5 +102,12 @@ public class SettingsController : MonoBehaviour
         {
             Debug.Log("PlayerPrefs - LanguageIndexPref: " +  PlayerPrefs.GetInt("LanguageIndexPref"));
         }
+    }
+
+    public void BackButton()
+    {
+	// TODO this should return the previous scene, which could be the Menu or the Game
+	// Now it always returns to the menu
+	SceneManager.LoadScene("Menu");
     }
 }
