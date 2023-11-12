@@ -106,8 +106,10 @@ public class SettingsController : MonoBehaviour
 
     public void BackButton()
     {
-	// TODO this should return the previous scene, which could be the Menu or the Game
-	// Now it always returns to the menu
-	SceneManager.LoadScene("Menu");
+    // try to load a playerpref that lists the previous scene.
+    // default: Menu scene
+    string previous_scene = PlayerPrefs.GetString("settings_backbutton_scene", "Menu");
+
+	SceneManager.LoadScene(previous_scene);
     }
 }

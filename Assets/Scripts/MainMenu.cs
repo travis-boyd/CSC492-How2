@@ -121,6 +121,9 @@ public class MainMenu : MonoBehaviour
 
     public void SettingsButton()
     {
+        // Set a playerpref so that the Settings scene can know which scene to return to when the "back" button is pressed
+        // in this case, "settings_backbutton_scene" will be set to "Menu"
+        PlayerPrefs.SetString("settings_backbutton_scene", SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("Settings");
     }
 
