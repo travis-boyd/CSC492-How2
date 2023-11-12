@@ -15,9 +15,10 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         // Load any settings that were saved from previous sessions
-        LoadSettings();
+        InitializeSettings();
         LoadProgression();
     }
+
     public void PlayGame ()
     {
     }
@@ -28,7 +29,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Settings");
     }
 
-    private void LoadSettings()
+    private void InitializeSettings()
     {
         // Load initial settings from PlayerPrefs  if they exist,
         // or load default values if PlayerPrefs don't exist
