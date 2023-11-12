@@ -15,8 +15,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
     public MovementState state;
-    /*public float currYPos;
-    public float lastYPos;*/
 
     [Header("Movement Speed")]
     private float moveSpeed;
@@ -25,25 +23,25 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag;
 
     [Header("Ground Check")]
-    public float playerHeight;
+    public float playerHeight = 5;
     public LayerMask whatIsGround;
     bool grounded;
 
     [Header("Falling")]
     public float inAirTimer;
     public float leapingVelocity = 0.25f;
-    public float fallingVelocity;
+    public float fallingVelocity = 20;
     public float rayCastHeightOffSet = 0.5f;
     public float maxDistance = 0.5f;
 
     [Header("Jumping")]
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
+    //public float jumpForce;
+    public float jumpCooldown = 0.25f;
+    public float airMultiplier = 0.15f;
     bool readyToJump;
 
     [Header("Jump Speeds")]
-    public float jumpingHeight = 3;
+    public float jumpingHeight = 5;
     public float gravityIntensity = -15;
 
     [Header("Keybinds")]
@@ -76,15 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
-        //currYPos = transform.position.y; // Get current position after jump
-
         jumpAnimation();
         MyInput();
         StateHandler();
         Animation();
-
 
         //Handle drag
         if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.idle)
@@ -123,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             // Mode - Sprinting
-            if ((Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey)) && Input.GetKey(sprintKey))
+            if (Input.GetKey(sprintKey))
             {
                 state = MovementState.sprinting;
                 moveSpeed = sprintSpeed;
@@ -174,21 +167,27 @@ public class PlayerMovement : MonoBehaviour
             }
     }
 
-    public float ySpeed;
-
     private void HandleFallingAndLanding()
     {
         RaycastHit hit;
         Vector3 rayCastOrigin = transform.position;
         rayCastOrigin.y = rayCastOrigin.y + rayCastHeightOffSet;
 
-        if (!grounded)
+        //Jumping in a direction
+        if (!grounded && Input.GetKey(forwardKey) || Input.GetKey(backwardKey) || Input.GetKey(rightKey) || Input.GetKey(leftKey))
         {
             inAirTimer = inAirTimer + Time.deltaTime;
             rb.AddForce(transform.forward * leapingVelocity);
-            rb.AddForce(-Vector3.up * fallingVelocity * inAirTimer);
+            rb.AddForce(Vector3.down * fallingVelocity * inAirTimer);
+        }
+        //Jumping in place
+        else if (!grounded)
+        {
+            inAirTimer = inAirTimer + Time.deltaTime;
+            rb.AddForce(Vector3.down * fallingVelocity * inAirTimer);
         }
 
+        //Ground Check
         if (Physics.SphereCast(rayCastOrigin, 0.2f, Vector3.down, out hit, maxDistance, whatIsGround))
         {
             inAirTimer = 0;
