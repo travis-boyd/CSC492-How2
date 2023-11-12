@@ -75,6 +75,9 @@ public class MainMenu : MonoBehaviour
         // This could be a clever single efficient string, but this way is dummy proof?
         // When a level is completed successfully, we'll simply use PlayerPrefs to 
         // save that completion record to local data.
+        
+        PlayerPrefs.SetInt("progression_1_1", 1);
+
         int prog_1_1 = PlayerPrefs.GetInt("progression_1_1", 0);
         int prog_1_2 = PlayerPrefs.GetInt("progression_1_2", 0);
         int prog_1_3 = PlayerPrefs.GetInt("progression_1_3", 0);
@@ -97,14 +100,19 @@ public class MainMenu : MonoBehaviour
         */
 
         // This is the dumbest possible way to do this lol
-        if (prog_1_1  == 0) deactivateButton(button_1_2);
-        if (prog_1_2  == 0) deactivateButton(button_1_3);
+
+        // If [Basic Movement] hasn't been completed, lock [Health 101] and [Damage 101]
         if (prog_1_3  == 0) deactivateButton(button_2_1);
+        if (prog_1_3  == 0) deactivateButton(button_3_1);
+
+        // if [easy] hasn't been completed, lock [medium]
         if (prog_1_1  == 0) deactivateButton(button_1_2);
         if (prog_2_1  == 0) deactivateButton(button_2_2);
-        if (prog_2_2  == 0) deactivateButton(button_2_3);
-        if (prog_2_3  == 0) deactivateButton(button_3_1);
         if (prog_3_1  == 0) deactivateButton(button_3_2);
+
+        // if [medium] hasn't been completed, lock [hard]
+        if (prog_1_2  == 0) deactivateButton(button_1_3);
+        if (prog_2_2  == 0) deactivateButton(button_2_3);
         if (prog_3_2  == 0) deactivateButton(button_3_3);
     }
 
