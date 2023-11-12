@@ -9,13 +9,47 @@ public class DifficultySelect : MonoBehaviour
     
 
     // For now take player to game scene
+    // every button loads movement 101
     public void SelectStage()
     {
         SceneManager.LoadScene("Movement101");
     }
 
-    public void Select12()
+    public void Select_1_1()
     {
-        // code
+        SceneManager.LoadScene("Camera and Movement Testing");
     }
+    public void Select_1_2()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+    public void Select_1_3()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+    public void Select_2_1()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+    public void Select_2_2()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+    public void Select_2_3()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+    public void Select_3_1()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+    public void Select_3_2()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+    public void Select_3_3()
+    {
+        SceneManager.LoadScene("Movement101");
+    }
+
 }
