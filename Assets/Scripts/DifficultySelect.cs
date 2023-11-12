@@ -12,44 +12,46 @@ public class DifficultySelect : MonoBehaviour
     // every button loads movement 101
     public void SelectStage()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
 
     public void Select_1_1()
     {
-        SceneManager.LoadScene("Camera and Movement Testing");
+        //SceneManager.LoadScene("Camera and Movement Testing");
+        SceneManager.LoadScene("Movement 101 Maps");
+        
     }
     public void Select_1_2()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
     public void Select_1_3()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
     public void Select_2_1()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
     public void Select_2_2()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
     public void Select_2_3()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
     public void Select_3_1()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
     public void Select_3_2()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
     public void Select_3_3()
     {
-        SceneManager.LoadScene("Movement101");
+        SceneManager.LoadScene("Movement 101 Maps");
     }
 
 }
