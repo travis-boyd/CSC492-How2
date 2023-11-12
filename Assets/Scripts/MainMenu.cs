@@ -28,11 +28,6 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Settings");
     }
 
-    public void QuitGame ()
-    {
-        Application.Quit();
-    }
-
     private void LoadSettings()
     {
         // Load initial settings from PlayerPrefs  if they exist,
