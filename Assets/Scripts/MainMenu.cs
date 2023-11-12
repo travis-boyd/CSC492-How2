@@ -123,4 +123,14 @@ public class MainMenu : MonoBehaviour
         buttonText.text = "LOCKED"; 
         
     }
+
+    public void SettingsButton()
+    {
+        SceneManager.LoadScene("Settings");
+    }
+
+    public void QuitButton()
+    {
+        // Quit
+    }
 }
