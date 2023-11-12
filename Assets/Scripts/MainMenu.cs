@@ -134,6 +134,7 @@ public class MainMenu : MonoBehaviour
         
     }
 
+    private void activateButton(Button button)
     {
         // re-activate button
         TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
