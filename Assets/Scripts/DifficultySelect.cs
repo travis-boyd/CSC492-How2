@@ -14,4 +14,8 @@ public class DifficultySelect : MonoBehaviour
         SceneManager.LoadScene("Movement101");
     }
 
+    public void Select12()
+    {
+        // code
+    }
 }

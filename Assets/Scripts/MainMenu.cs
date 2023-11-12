@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class MainMenu : MonoBehaviour
@@ -84,6 +85,19 @@ public class MainMenu : MonoBehaviour
         int prog_3_2 = PlayerPrefs.GetInt("progression_3_2", 0);
         int prog_3_3 = PlayerPrefs.GetInt("progression_3_3", 0);
         
+        
+        // Testing
+        /*
+        Debug.Log("prog_1_1 = " + prog_1_1);
+        Debug.Log("prog_1_2 = " + prog_1_2);
+        Debug.Log("prog_1_3 = " + prog_1_3);
+        Debug.Log("prog_2_1 = " + prog_2_1);
+        Debug.Log("prog_2_2 = " + prog_2_2);
+        Debug.Log("prog_2_3 = " + prog_2_3);
+        Debug.Log("prog_3_1 = " + prog_3_1);
+        Debug.Log("prog_3_2 = " + prog_3_2);
+        Debug.Log("prog_3_3 = " + prog_3_3);
+        */
 
         /* quick proof of concept
         public TextMeshProUGUI moveMediumBox;
@@ -118,6 +132,13 @@ public class MainMenu : MonoBehaviour
         buttonText.color = Color.grey;
         buttonText.text = "LOCKED"; 
         
+    }
+
+    {
+        // re-activate button
+        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.text = "UNLOCKED";
+        buttonText.color = Color.green;
     }
 
     public void SettingsButton()
