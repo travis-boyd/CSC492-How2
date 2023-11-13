@@ -8,6 +8,7 @@ public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
     public int UIObjectiveCount = 0;
+    public static ObjectiveManager Instance;
 
 
 
@@ -18,6 +19,7 @@ public class ObjectiveManager : MonoBehaviour
 
     void Start()
     {
+        Instance = this;
         UIInitialize();
 
         // testing
