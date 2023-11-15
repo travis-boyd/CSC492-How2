@@ -108,6 +108,7 @@ public class ObjectiveManager : MonoBehaviour
         titleTexts[indexToComplete].fontStyle |= FontStyles.Strikethrough;
         descriptionTexts[indexToComplete].color = Color.gray;
         descriptionTexts[indexToComplete].fontStyle |= FontStyles.Strikethrough;
+        Flash(Color.green);
     }
     public void UICompleteObjective(Objective objective)
     {
@@ -175,5 +176,33 @@ public class ObjectiveManager : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public void Flash(Color color)
+    {
+        StartCoroutine(FlashCoroutine(color));
+    }
+
+    IEnumerator FlashCoroutine(Color color)
+    {
+        Image panelImage = objectivePanel.GetComponent<Image>();
+        Color originalColor = panelImage.color;
+
+        // Flashing effect loop
+        float elapsedTime = 0f;
+        float flashDuration = 1f;
+        Color flashColor = color;
+
+        while (elapsedTime < flashDuration)
+        {
+            // Alternate between the original color and the flash color
+            panelImage.color = (Mathf.FloorToInt(elapsedTime * 10) % 2 == 0) ? flashColor : originalColor;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Reset the color to the original color when the flashing is done
+        panelImage.color = originalColor;
     }
 }
