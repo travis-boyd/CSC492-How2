@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 // TODO:
@@ -101,5 +102,14 @@ public class SettingsController : MonoBehaviour
         {
             Debug.Log("PlayerPrefs - LanguageIndexPref: " +  PlayerPrefs.GetInt("LanguageIndexPref"));
         }
+    }
+
+    public void BackButton()
+    {
+    // try to load a playerpref that lists the previous scene.
+    // default: Menu scene
+    string previous_scene = PlayerPrefs.GetString("settings_backbutton_scene", "Menu");
+
+	SceneManager.LoadScene(previous_scene);
     }
 }

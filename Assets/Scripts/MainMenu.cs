@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class MainMenu : MonoBehaviour
@@ -15,9 +16,10 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         // Load any settings that were saved from previous sessions
-        LoadSettings();
+        InitializeSettings();
         LoadProgression();
     }
+
     public void PlayGame ()
     {
     }
@@ -28,12 +30,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Settings");
     }
 
-    public void QuitGame ()
-    {
-        Application.Quit();
-    }
-
-    private void LoadSettings()
+    private void InitializeSettings()
     {
         // Load initial settings from PlayerPrefs  if they exist,
         // or load default values if PlayerPrefs don't exist
@@ -75,6 +72,9 @@ public class MainMenu : MonoBehaviour
         // This could be a clever single efficient string, but this way is dummy proof?
         // When a level is completed successfully, we'll simply use PlayerPrefs to 
         // save that completion record to local data.
+        
+        PlayerPrefs.SetInt("progression_1_1", 1);
+
         int prog_1_1 = PlayerPrefs.GetInt("progression_1_1", 0);
         int prog_1_2 = PlayerPrefs.GetInt("progression_1_2", 0);
         int prog_1_3 = PlayerPrefs.GetInt("progression_1_3", 0);
@@ -85,6 +85,19 @@ public class MainMenu : MonoBehaviour
         int prog_3_2 = PlayerPrefs.GetInt("progression_3_2", 0);
         int prog_3_3 = PlayerPrefs.GetInt("progression_3_3", 0);
         
+        
+        // Testing
+        /*
+        Debug.Log("prog_1_1 = " + prog_1_1);
+        Debug.Log("prog_1_2 = " + prog_1_2);
+        Debug.Log("prog_1_3 = " + prog_1_3);
+        Debug.Log("prog_2_1 = " + prog_2_1);
+        Debug.Log("prog_2_2 = " + prog_2_2);
+        Debug.Log("prog_2_3 = " + prog_2_3);
+        Debug.Log("prog_3_1 = " + prog_3_1);
+        Debug.Log("prog_3_2 = " + prog_3_2);
+        Debug.Log("prog_3_3 = " + prog_3_3);
+        */
 
         /* quick proof of concept
         public TextMeshProUGUI moveMediumBox;
@@ -97,14 +110,19 @@ public class MainMenu : MonoBehaviour
         */
 
         // This is the dumbest possible way to do this lol
-        if (prog_1_1  == 0) deactivateButton(button_1_2);
-        if (prog_1_2  == 0) deactivateButton(button_1_3);
+
+        // If [Basic Movement] hasn't been completed, lock [Health 101] and [Damage 101]
         if (prog_1_3  == 0) deactivateButton(button_2_1);
+        if (prog_1_3  == 0) deactivateButton(button_3_1);
+
+        // if [easy] hasn't been completed, lock [medium]
         if (prog_1_1  == 0) deactivateButton(button_1_2);
         if (prog_2_1  == 0) deactivateButton(button_2_2);
-        if (prog_2_2  == 0) deactivateButton(button_2_3);
-        if (prog_2_3  == 0) deactivateButton(button_3_1);
         if (prog_3_1  == 0) deactivateButton(button_3_2);
+
+        // if [medium] hasn't been completed, lock [hard]
+        if (prog_1_2  == 0) deactivateButton(button_1_3);
+        if (prog_2_2  == 0) deactivateButton(button_2_3);
         if (prog_3_2  == 0) deactivateButton(button_3_3);
     }
 
@@ -114,5 +132,26 @@ public class MainMenu : MonoBehaviour
         buttonText.color = Color.grey;
         buttonText.text = "LOCKED"; 
         
+    }
+
+    private void activateButton(Button button)
+    {
+        // re-activate button
+        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.text = "UNLOCKED";
+        buttonText.color = Color.green;
+    }
+
+    public void SettingsButton()
+    {
+        // Set a playerpref so that the Settings scene can know which scene to return to when the "back" button is pressed
+        // in this case, "settings_backbutton_scene" will be set to "Menu"
+        PlayerPrefs.SetString("settings_backbutton_scene", SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Settings");
+    }
+
+    public void QuitButton()
+    {
+        // Quit
     }
 }

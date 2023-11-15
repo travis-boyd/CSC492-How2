@@ -4,7 +4,7 @@ public class Mob : Entity
 {
     public int damage;
 
-    public void Start()
+    new public void Start()
     {
         base.Start();
         Initialize();
