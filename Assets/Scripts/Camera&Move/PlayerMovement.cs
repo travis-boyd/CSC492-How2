@@ -245,4 +245,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Run Code");
+        if (other.CompareTag("Objective_1"))
+        {
+            Debug.Log("Player touched Objective_1");
+            ObjectiveManager objectiveManager = FindObjectOfType<ObjectiveManager>();
+            if (objectiveManager != null) {Debug.Log("not null!");}
+            else {Debug.Log("null :(");}
+
+            objectiveManager.UICompleteObjective(0);
+        }
+    }
+
 }
