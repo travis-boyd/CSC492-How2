@@ -8,6 +8,7 @@ public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
     public int UIObjectiveCount = 0;
+    public static ObjectiveManager Instance;
 
 
 
@@ -18,14 +19,18 @@ public class ObjectiveManager : MonoBehaviour
 
     void Start()
     {
+        Instance = this;
         UIInitialize();
 
         // testing
+        /*
         UIAddObjective(new Objective("title1","description1"));
         UIAddObjective(new Objective("title2","description2"));
         UIAddObjective(new Objective("title3","description3"));
         UIAddObjective(new Objective("title4","description4"));
+        */
 
+        UIAddObjective(new Objective("Move!", "Reach the SPHERE"));
     }
 
     public void UIAddObjective(Objective objective)
@@ -33,7 +38,8 @@ public class ObjectiveManager : MonoBehaviour
         // If there are already 4 objectives in the UI, it is too full
         if (UIObjectiveCount > 3)
         {
-            Debug.LogError("Error: objectives panel full");
+            Debug.LogError("Error: objectives panel full (" + UIObjectiveCount + ")");
+            
             return;
         }
 
@@ -60,16 +66,8 @@ public class ObjectiveManager : MonoBehaviour
 
     }
 
-    public void UIRemoveObjective(Objective objective)
+    public void UIRemoveObjective(int indexToRemove)
     {
-        // Find the index of the objective to remove
-        int indexToRemove = getObjectiveIndex(objective);
-        if (indexToRemove == -1)
-        {
-            Debug.LogError("Error: objective not found");
-            return;
-        }
-
         // If there are active objectives after the one we're removing,
         // shift them all forward, overwriting the previous
         for (int i = indexToRemove; i < 3; i++)
@@ -89,16 +87,33 @@ public class ObjectiveManager : MonoBehaviour
         {
             objectivePanel.SetActive(false);
         }
+    }
+    public void UIRemoveObjective(Objective objective)
+    {
+        // Find the index of the objective to remove
+        int indexToRemove = getObjectiveIndex(objective);
+        if (indexToRemove == -1)
+        {
+            Debug.LogError("Error: objective not found");
+            return;
+        }
+
+        UIRemoveObjective(indexToRemove);
 
     }
 
-    void UICompleteObjective(Objective objective)
+    public void UICompleteObjective(int indexToComplete)
     {
-        int indexToComplete = getObjectiveIndex(objective);
         titleTexts[indexToComplete].color = Color.gray;
         titleTexts[indexToComplete].fontStyle |= FontStyles.Strikethrough;
         descriptionTexts[indexToComplete].color = Color.gray;
         descriptionTexts[indexToComplete].fontStyle |= FontStyles.Strikethrough;
+        Flash(Color.green);
+    }
+    public void UICompleteObjective(Objective objective)
+    {
+        int indexToComplete = getObjectiveIndex(objective);
+        UICompleteObjective(indexToComplete);
 
 
         // doesn't remove it from the UI, but greys it out/crosses it out
@@ -161,5 +176,33 @@ public class ObjectiveManager : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public void Flash(Color color)
+    {
+        StartCoroutine(FlashCoroutine(color));
+    }
+
+    IEnumerator FlashCoroutine(Color color)
+    {
+        Image panelImage = objectivePanel.GetComponent<Image>();
+        Color originalColor = panelImage.color;
+
+        // Flashing effect loop
+        float elapsedTime = 0f;
+        float flashDuration = 1f;
+        Color flashColor = color;
+
+        while (elapsedTime < flashDuration)
+        {
+            // Alternate between the original color and the flash color
+            panelImage.color = (Mathf.FloorToInt(elapsedTime * 10) % 2 == 0) ? flashColor : originalColor;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Reset the color to the original color when the flashing is done
+        panelImage.color = originalColor;
     }
 }
