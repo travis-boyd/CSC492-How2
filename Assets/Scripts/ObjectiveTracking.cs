@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class ObjectiveManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Win!");
-        // code
+        StartCoroutine(RestartSceneAfterDelayCoroutine(5f));
     }
 
     public void AddObjective(Objective objective)
@@ -206,6 +207,15 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(FlashCoroutine(color));
     }
 
+    private void ReloadScene()
+    {
+        // Get the current scene index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Load the current scene again to restart
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
     IEnumerator FlashCoroutine(Color color)
     {
         Image panelImage = objectivePanel.GetComponent<Image>();
@@ -227,5 +237,14 @@ public class ObjectiveManager : MonoBehaviour
 
         // Reset the color to the original color when the flashing is done
         panelImage.color = originalColor;
+    }
+
+    private IEnumerator RestartSceneAfterDelayCoroutine(float delay)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
+
+        // Restart the scene
+        ReloadScene();
     }
 }
