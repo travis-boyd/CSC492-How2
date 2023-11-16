@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
     private bool isPaused = false;
+    public Canvas pauseScreenCanvas;
+    public Button ResumeButton, MainMenuButton, QuitButton;
+
 
     // Update is called once per frame
     void Update()
@@ -14,6 +18,17 @@ public class PauseManager : MonoBehaviour
             Debug.Log("Paused pressed");
             TogglePause();
         }
+    }
+
+
+    /*
+    GUI Buttons
+    */
+
+    public void PressResumeButton()
+    {
+        TogglePause();
+
     }
 
     void TogglePause()
@@ -26,11 +41,34 @@ public class PauseManager : MonoBehaviour
 
     void PauseGame()
     {
-        Time.timeScale = 0f; // Set time scale to 0 to pause the game
+        // Set time scale to 0 to pause the game
+        Time.timeScale = 0f;
+
+        // Overlay the pause screen canvas
+        if (pauseScreenCanvas != null)
+        {
+            Debug.Log("Pause Canvas activated");
+            pauseScreenCanvas.gameObject.SetActive(true);
+        }
+        else if (pauseScreenCanvas = null)
+        {
+            Debug.LogError("pauseScreenCanvas null 55");
+        }
     }
 
     void ResumeGame()
     {
-        Time.timeScale = 1f; // Set time scale back to 1 to resume the game
+        // Set time scale back to 1 to resume the game
+        Time.timeScale = 1f;
+
+        // Remove overlay of pause screen canvas
+        if (pauseScreenCanvas != null)
+        {
+            pauseScreenCanvas.gameObject.SetActive(false);
+        }
+        else if (pauseScreenCanvas = null)
+        {
+            Debug.LogError("pauseScreenCanvas null 71");
+        }
     }
 }
