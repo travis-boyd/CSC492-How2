@@ -8,6 +8,7 @@ public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
     public int UIObjectiveCount = 0;
+    public int CompletedObjectiveCount = 0;
     public static ObjectiveManager Instance;
 
 
@@ -30,10 +31,20 @@ public class ObjectiveManager : MonoBehaviour
         UIAddObjective(new Objective("title4","description4"));
         */
 
-        UIAddObjective(new Objective("Move!", "Reach the SPHERE"));
+        AddObjective(new Objective("Move!", "Reach the SPHERE"));
     }
 
-    public void UIAddObjective(Objective objective)
+    public void Win()
+    {
+        Debug.Log("Win!");
+        // code
+    }
+
+    public void AddObjective(Objective objective)
+    {
+        UIAddObjective(objective);
+    }
+    private void UIAddObjective(Objective objective)
     {
         // If there are already 4 objectives in the UI, it is too full
         if (UIObjectiveCount > 3)
@@ -66,7 +77,12 @@ public class ObjectiveManager : MonoBehaviour
 
     }
 
-    public void UIRemoveObjective(int indexToRemove)
+    public void RemoveObjective(int positionToRemove)
+    {
+        int indexToRemove = positionToRemove - 1;
+        UIRemoveObjective(indexToRemove);
+    }
+    private void UIRemoveObjective(int indexToRemove)
     {
         // If there are active objectives after the one we're removing,
         // shift them all forward, overwriting the previous
@@ -88,7 +104,7 @@ public class ObjectiveManager : MonoBehaviour
             objectivePanel.SetActive(false);
         }
     }
-    public void UIRemoveObjective(Objective objective)
+    public void RemoveObjective(Objective objective)
     {
         // Find the index of the objective to remove
         int indexToRemove = getObjectiveIndex(objective);
@@ -102,6 +118,17 @@ public class ObjectiveManager : MonoBehaviour
 
     }
 
+    public void CompleteObjective(int positionToComplete)
+    {
+        int indexToComplete = positionToComplete - 1;
+        UICompleteObjective(indexToComplete);
+        CompletedObjectiveCount++;
+        if (CompletedObjectiveCount == UIObjectiveCount)
+        {
+            Win();
+        }
+
+    }
     public void UICompleteObjective(int indexToComplete)
     {
         titleTexts[indexToComplete].color = Color.gray;
@@ -114,10 +141,6 @@ public class ObjectiveManager : MonoBehaviour
     {
         int indexToComplete = getObjectiveIndex(objective);
         UICompleteObjective(indexToComplete);
-
-
-        // doesn't remove it from the UI, but greys it out/crosses it out
-        // implement this method
     }
 
 

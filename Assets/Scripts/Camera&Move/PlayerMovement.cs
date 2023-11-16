@@ -256,7 +256,7 @@ public class PlayerMovement : MonoBehaviour
             else {Debug.Log("null :(");}
             */
 
-            objectiveManager.UICompleteObjective(0);
+            objectiveManager.CompleteObjective(1);
         }
     }
 
