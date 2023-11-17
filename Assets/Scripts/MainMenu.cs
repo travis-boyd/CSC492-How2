@@ -153,5 +153,6 @@ public class MainMenu : MonoBehaviour
     public void QuitButton()
     {
         // Quit
+        Application.Quit();
     }
 }
