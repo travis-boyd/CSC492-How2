@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PauseManager : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.P)))
         {
-            Debug.Log("Paused pressed");
+            // Debug.Log("Paused pressed");
             TogglePause();
         }
     }
@@ -27,8 +28,23 @@ public class PauseManager : MonoBehaviour
 
     public void PressResumeButton()
     {
+        // Debug.Log("Resume button pressed");
         TogglePause();
 
+    }
+
+    public void PressMainMenuButton()
+    {
+        //Debug.Log("MainMenu button pressed");
+        SceneManager.LoadScene("Menu");
+        // code to open main menu
+    }
+
+    public void PressQuitButton()
+    {
+        // Debug.Log("Quit button pressed");
+        Application.Quit();
+        // code to quit
     }
 
     void TogglePause()
@@ -47,7 +63,7 @@ public class PauseManager : MonoBehaviour
         // Overlay the pause screen canvas
         if (pauseScreenCanvas != null)
         {
-            Debug.Log("Pause Canvas activated");
+            // Debug.Log("Pause Canvas activated");
             pauseScreenCanvas.gameObject.SetActive(true);
         }
         else if (pauseScreenCanvas = null)
