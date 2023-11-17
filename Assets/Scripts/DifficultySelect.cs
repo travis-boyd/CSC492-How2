@@ -23,7 +23,7 @@ public class DifficultySelect : MonoBehaviour
     }
     public void Select_1_2()
     {
-        SceneManager.LoadScene("Movement 101 Maps");
+        SceneManager.LoadScene("Movement101 Mazer");
     }
     public void Select_1_3()
     {
