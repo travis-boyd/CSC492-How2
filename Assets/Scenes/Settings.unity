@@ -1957,15 +1957,15 @@ MonoBehaviour:
     m_Options:
     - m_Text: English (EN)
       m_Image: {fileID: 0}
-    - m_Text: "Espa\xF1ola (ES)"
+    - m_Text: English (EN)
       m_Image: {fileID: 0}
-    - m_Text: "Fran\xE7ais (FR)"
+    - m_Text: English (EN)
       m_Image: {fileID: 0}
-    - m_Text: "\u4E2D\u6587 (ZH)"
+    - m_Text: English (EN)
       m_Image: {fileID: 0}
-    - m_Text: "\u65E5\u672C\u8A9E (JA)"
+    - m_Text: English (EN)
       m_Image: {fileID: 0}
-    - m_Text: "\uD55C\uAD6D\uC5B4 (KO)"
+    - m_Text: English (EN)
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
