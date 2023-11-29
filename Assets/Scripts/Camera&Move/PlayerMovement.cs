@@ -56,8 +56,10 @@ public class PlayerMovement : MonoBehaviour
     {
         walking,
         sprinting,
-        idle,
-        air
+        jumping,
+        air,
+        landing, 
+        idle
     }
 
     private void Awake()
@@ -74,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        jumpAnimation();
         MyInput();
         StateHandler();
         Animation();
@@ -127,6 +128,10 @@ public class PlayerMovement : MonoBehaviour
                 state = MovementState.walking;
                 moveSpeed = walkSpeed;
 
+            }
+            else if(Input.GetKey(jumpKey))
+            {
+                state = MovementState.jumping;
             }
             // Mode - Idle
             else
@@ -201,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        
         float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpingHeight);
         Vector3 playerVelocity = moveDirection;
         playerVelocity.y = jumpingVelocity;
@@ -226,22 +232,23 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isSprinting", true); // set isSprinting boolean to true 
         }
         // set isMoving and isSprinting to false when in idle state
-        else if(grounded && state == MovementState.idle)
+        else if (grounded && state == MovementState.idle)
         {
             animator.SetBool("isMoving", false);
             animator.SetBool("isSprinting", false);
+            animator.SetBool("isJumping", false);
+        }
+        else if(!grounded && state == MovementState.jumping)
+        {
+            animator.SetBool("isJumping", false); //set isJumping boolean to true
         }
         // set all to false
         else
         {
             animator.SetBool("isMoving", false);
             animator.SetBool("isSprinting", false);
+            animator.SetBool("isJumping", false);
         }
-
-    }
-
-    public void jumpAnimation()
-    {
 
     }
 
