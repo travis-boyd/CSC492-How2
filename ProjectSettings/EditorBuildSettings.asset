@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Settings.unity
     guid: 12f856026336f9045b04197adcfd01ef
   - enabled: 1
-    path: Assets/Scenes/Movement 101 Maps.unity
+    path: Assets/Scenes/Game Scene/Movement101 Playground.unity
     guid: 919472a4a4f60e148828757458d00a11
   - enabled: 1
     path: Assets/Scenes/Game Scene/Movement101 Mazer.unity
