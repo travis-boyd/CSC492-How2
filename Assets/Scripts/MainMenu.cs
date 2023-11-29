@@ -75,7 +75,7 @@ public class MainMenu : MonoBehaviour
         // When a level is completed successfully, we'll simply use PlayerPrefs to 
         // save that completion record to local data.
         
-        PlayerPrefs.SetInt("progression_1_1", 1);
+        // PlayerPrefs.SetInt("progression_1_1", 0);
 
         int prog_1_1 = PlayerPrefs.GetInt("progression_1_1", 0);
         int prog_1_2 = PlayerPrefs.GetInt("progression_1_2", 0);
@@ -154,6 +154,10 @@ public class MainMenu : MonoBehaviour
 
     public void QuitButton()
     {
+        // Reset Player Progression
+        PlayerPrefs.SetInt("progression_1_1", 0);
+        PlayerPrefs.SetInt("progression_1_2", 0);
+        PlayerPrefs.SetInt("progression_1_3", 0);
         // Quit
         Application.Quit();
     }

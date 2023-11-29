@@ -38,6 +38,17 @@ public class ObjectiveManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Win!");
+        
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log("currentSceneIndex: " + currentSceneIndex);
+        if (currentSceneIndex == 3) // level 1-1
+        {
+            PlayerPrefs.SetInt("progression_1_1", 1);
+        }
+        if (currentSceneIndex == 4) // level 1-2
+        {
+            PlayerPrefs.SetInt("progression_1_2", 1);
+        }
         //StartCoroutine(RestartSceneAfterDelayCoroutine(5f));
         StartCoroutine(GoToMenuDelayCoroutine(5f));
     }

@@ -18,16 +18,16 @@ public class DifficultySelect : MonoBehaviour
     public void Select_1_1()
     {
         //SceneManager.LoadScene("Camera and Movement Testing");
-        SceneManager.LoadScene("Movement 101 Maps");
+        SceneManager.LoadScene("Movement101 Playground");
         
     }
     public void Select_1_2()
     {
-        SceneManager.LoadScene("Movement101 Mazer");
+        SceneManager.LoadScene("Movement101 Pit");
     }
     public void Select_1_3()
     {
-        SceneManager.LoadScene("Movement 101 Maps");
+        SceneManager.LoadScene("Movement101 Mazer");
     }
     public void Select_2_1()
     {
