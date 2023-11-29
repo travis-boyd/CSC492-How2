@@ -15,6 +15,8 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         // Load any settings that were saved from previous sessions
         InitializeSettings();
         LoadProgression();
