@@ -38,7 +38,8 @@ public class ObjectiveManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Win!");
-        StartCoroutine(RestartSceneAfterDelayCoroutine(5f));
+        //StartCoroutine(RestartSceneAfterDelayCoroutine(5f));
+        StartCoroutine(GoToMenuDelayCoroutine(5f));
     }
 
     public void AddObjective(Objective objective)
@@ -237,6 +238,17 @@ public class ObjectiveManager : MonoBehaviour
 
         // Reset the color to the original color when the flashing is done
         panelImage.color = originalColor;
+    }
+
+    private IEnumerator GoToMenuDelayCoroutine(float delay)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
+
+        // Go to menu
+        
+        Debug.Log("Go to menu");
+        SceneManager.LoadScene("Menu");
     }
 
     private IEnumerator RestartSceneAfterDelayCoroutine(float delay)
